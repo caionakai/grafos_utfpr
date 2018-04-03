@@ -16,29 +16,50 @@ G.add_node("v2",cor='perto')
 G.nodes["v1"]['cor'] = 'amarelo'
 print (G.nodes.data())
 
-'''
 
+'''
 def removeBreakLine(name):
     if name[len(name)-1] == '.':
        name = name[:-1]
 
+def isInt(string):
+    for i in string:
+        if int(i):
+            return int(i)
+    return 0
+
+def TestList(arquivo):
+    string=[]
+    size=0
+    for linha in arquivo:
+        token = linha.split(',')
+        if size>0:
+            string.append(token)
+            size = size -1
+        else:
             
+            size = isInt(token)
+
+        
+            
+        
+
+            
+    
+
+   
+        
 argc = len(sys.argv)
 
-if argc != 3:
-    print 'Uso: python nani.py numero_de_artigos arquivo_dos_nome_dos_autores '
+if argc != 2:
+    print 'Uso: python nani.py arquivo_dos_nome_dos_autores '
     sys.exit(0)
 
-numero_de_artigos = sys.argv[1]
-aux = sys.argv[2]
+aux = sys.argv[1]
 
-if 1 > numero_de_artigos > 100:
-    print 'Entrada Incorreta'
 
 arquivo = open(aux).readlines()
 
-for linha in arquivo:
-    token = linha.split(',')
-    for i in token:
-        if i != "0\n":
-            G.add_node(i, cor='Branca', tempo = 0)
+TestList(arquivo)
+    
+
