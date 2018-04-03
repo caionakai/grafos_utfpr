@@ -21,4 +21,11 @@ def DFS-Visit(G, u):
 	tempo = tempo + 1
 	G.nodes[u]['descoberta'] = tempo
 	G.nodes[u]['cor'] = "cinza"
-	
+	for v,b in G.adj[u].items():	#v significa number_of_node_adj
+    	if G.nodes[v]['cor'] == "branco":
+    			G.nodes[v]['predecessor'] = u
+				DFS-Visit(G, v)
+	G.nodes[u]['cor'] = "preto"
+	tempo = tempo + 1
+	G.nodes[u]['finalizacao'] = tempo
+															

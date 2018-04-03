@@ -18,7 +18,7 @@ for number_of_node_adj,b in G.adj[2].items():
 	
 
 #nodes(G)
-print (G.nodes.data())
+#print (G.nodes.data())
 #complete_graph(n, create_using=None)
 
 #add list of nodes
