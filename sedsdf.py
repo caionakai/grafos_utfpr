@@ -11,6 +11,7 @@ G.add_node(3, cor='branco')
 G.add_edge(1, 2)
 G.add_edge(1, 3)
 
+print (G.nodes[1])
 #G.nodes.data()
 
 for number_of_node_adj,b in G.adj[2].items():
