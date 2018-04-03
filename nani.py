@@ -3,21 +3,7 @@ import networkx as nx
 import sys
 
 
-G = nx.Graph()
 
-cor = "branco"
-tempo = 0
-'''
-G.add_node("v1",cor='azul')
-G.add_node("v2",cor='perto')
-
-
-
-G.nodes["v1"]['cor'] = 'amarelo'
-print (G.nodes.data())
-
-
-'''
 def removeBreakLine(name):
     if name[len(name)-1] == '.':
        name = name[:-1]
@@ -33,19 +19,34 @@ def Combinacao_Dos_Autores(nomes):
     for linha in nomes:
         for i in range(0 , len(linha)):
             for j in range(i+1 , len(linha)):
-                novo_nome.append({linha[i].replace('\n',''),linha[j].replace('\n','')})
+                novo_nome.append({0:linha[i].replace('\n',''),1:linha[j].replace('\n','')})
     return novo_nome
 
-def TestList(arquivo):
+def Inicializacao(arquivo):
+    
+    G = nx.Graph()
     string=[]
     size=0
+    teste=0
     for linha in arquivo:
         token = linha.split(',')
         if size>0:
             string.append(token)
             size = size -1
         else:
-            
+            ##Inicializar iteracao
+            for i in Combinacao_Dos_Autores(string):
+                G.add_node(i[0],cor='branco',tempo = 0)
+                G.add_node(i[1],cor='branco',tempo = 0)
+                G.add_edge(i[0], i[1])
+            if G.number_of_nodes()> 0:
+                teste=teste+1
+                print("Teste ",teste)
+                for node in G.nodes:
+                    DFS_Visit(G,node)
+            ##Limpando para proxima iteracao
+            G.clear()
+            del string[:]
             size = isInt(token)
         
 argc = len(sys.argv)
@@ -59,6 +60,7 @@ aux = sys.argv[1]
 
 arquivo = open(aux).readlines()
 
-TestList(arquivo)
-    
+Inicializacao(arquivo)
+
+
 
