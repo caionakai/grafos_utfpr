@@ -28,6 +28,14 @@ def isInt(string):
             return int(i)
     return 0
 
+def Combinacao_Dos_Autores(nomes):
+    novo_nome=[]
+    for linha in nomes:
+        for i in range(0 , len(linha)):
+            for j in range(i+1 , len(linha)):
+                novo_nome.append({linha[i].replace('\n',''),linha[j].replace('\n','')})
+    return novo_nome
+
 def TestList(arquivo):
     string=[]
     size=0
@@ -39,15 +47,6 @@ def TestList(arquivo):
         else:
             
             size = isInt(token)
-
-        
-            
-        
-
-            
-    
-
-   
         
 argc = len(sys.argv)
 
