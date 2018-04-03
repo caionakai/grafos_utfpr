@@ -15,15 +15,27 @@ def isInt(string):
 def Combinacao_Dos_Autores(nomes):
     novo_nome=[]
     for linha in nomes:
-        for i in range(0 , len(linha)):
-            for j in range(i+1 , len(linha)):
-                novo_nome.append({0:linha[i].replace('\n',''),1:linha[j].replace('\n','')})
+        if len(linha)==1:
+            novo_nome.append({0:linha[0].replace('\n',''),1:linha[0].replace('\n','')})
+        else:
+            for i in range(0 , len(linha)):
+                for j in range(i+1 , len(linha)):
+                    novo_nome.append({0:linha[i].replace('\n',''),1:linha[j].replace('\n','')})
     return novo_nome
 def DFS(G):
     array=[]
     array.append("P. Erdos")
     DFS_Visit(G,array)
     G.remove_node("P. Erdos")
+
+    array= []
+    for i in G.nodes:
+        array.append(i.split(" "))
+    array = sorted(array,key=lambda node:node[1][0] )
+
+    for node in array:
+        value=node[0]+" "+node[1]
+        print(value,":",G.nodes[value]['finalizacao'] if G.nodes[value]['finalizacao']!=0 else "infinito" )
 
 def DFS_Visit(G, array):
     if len(array)==0:
@@ -57,15 +69,16 @@ def Inicializacao(arquivo):
             ##Inicializar iteracao
             if G.number_of_nodes()== 0:
                 for i in Combinacao_Dos_Autores(string):
-                    G.add_node(i[0],cor='branco',finalizacao=0)
-                    G.add_node(i[1],cor='branco',finalizacao=0)
-                    G.add_edge(i[0], i[1])
+                    if(i[0]!=i[1]):
+                        G.add_node(i[0],cor='branco',finalizacao=0)
+                        G.add_node(i[1],cor='branco',finalizacao=0)
+                        G.add_edge(i[0], i[1])
+                    else:
+                        G.add_node(i[0],cor='branco',finalizacao=0)
                 if teste>0:    
                     print("\nTeste ",teste,'\n')
                     DFS(G)
-                    for node in G.nodes.data():
-                        print(node[0],":",node[1]['finalizacao'] if node[1]['finalizacao']!=0 else "infinito" )
-                    exit()
+                    
             ##Limpando para proxima iteracao
             teste=teste+1
             G.clear()
